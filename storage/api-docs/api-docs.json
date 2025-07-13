@@ -1,0 +1,201 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Test Documentation",
+        "description": "این یک API تستی برای بررسی Swagger است",
+        "contact": {
+            "email": "test@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "سرور API محلی"
+        }
+    ],
+    "paths": {
+        "/api/items": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "دریافت لیست آیتم‌ها",
+                "description": "این Endpoint لیست تمام آیتم‌ها را برمی‌گرداند.",
+                "operationId": "getItemsList",
+                "responses": {
+                    "200": {
+                        "description": "عملیات موفقیت‌آمیز",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "owner_name": {
+                                                "type": "string",
+                                                "example": "نام مالک"
+                                            },
+                                            "item_code": {
+                                                "type": "string",
+                                                "example": "09123456789"
+                                            },
+                                            "category": {
+                                                "type": "string",
+                                                "example": "res"
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "example": "type_value"
+                                            },
+                                            "price_suggestion": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 1500000
+                                            },
+                                            "location": {
+                                                "type": "string",
+                                                "example": "موقعیت مکانی"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "خطای احراز هویت"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "ایجاد آیتم جدید",
+                "description": "این Endpoint یک آیتم جدید را در سیستم ثبت می‌کند.",
+                "operationId": "createItem",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "owner_name",
+                                    "item_code",
+                                    "category",
+                                    "type",
+                                    "price_suggestion",
+                                    "location"
+                                ],
+                                "properties": {
+                                    "owner_name": {
+                                        "type": "string",
+                                        "example": "نام مالک"
+                                    },
+                                    "item_code": {
+                                        "type": "string",
+                                        "example": "09123456789"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "enum": [
+                                            "res",
+                                            "dos",
+                                            "kos"
+                                        ],
+                                        "example": "res"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "type_value"
+                                    },
+                                    "price_suggestion": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 1500000
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "موقعیت مکانی"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "آیتم با موفقیت ایجاد شد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "آگهی با موفقیت ثبت شد"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "item_code": {
+                                                    "type": "string",
+                                                    "example": "09123456789"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "خطای اعتبارسنجی یا مشکل در ثبت آگهی",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "آگهی با مشکل مواجه شد!"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Items",
+            "description": "مدیریت آیتم‌ها"
+        }
+    ]
+}
