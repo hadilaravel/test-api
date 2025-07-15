@@ -76,7 +76,7 @@ class ItemController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/items",
+     * path="/api/items/create",
      * operationId="createItem",
      * tags={"Items"},
      * summary="ایجاد آیتم جدید",
